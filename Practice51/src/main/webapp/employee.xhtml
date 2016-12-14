@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+	<h1>Employee</h1>
+		
+		<h:form id="frmEmployee">
+			First Name: <h:inputText value="#{employeeController.employee.firstName}" />
+			Last Name: <h:inputText value="#{employeeController.employee.lastName}" />
+			Email:  <h:inputText value="#{employeeController.employee.email}" />
+			Phone Number:  <h:inputText value="#{employeeController.employee.phoneNumber}" />
+			Hire Date:  <h:inputText value="#{employeeController.employee.hireDate}" />
+			Job Id:  <h:inputText value="#{employeeController.employee.jobId}" />
+			Salary:  <h:inputText value="#{employeeController.employee.salary}" />
+			Commision PCT:  <h:inputText value="#{employeeController.employee.commissionPct}" />
+			Manager Id:  <h:inputText value="#{employeeController.employee.managerId}" />
+			Departament Id:  <h:inputText value="#{employeeController.employee.departamentId}" />		
+			
+				
+		<h:commandButton action="#{employeeController.save}" value="Save" >
+		<f:ajax execute="frmEmployee" render="frmEmployee"/>
+		</h:commandButton>
+		
+		<h:commandButton rendered="#{employeeController.editMode}" 
+			action="#{employeeController.save}" value="Cancel" >
+			<f:ajax render="frmEmployee"></f:ajax>
+		</h:commandButton>
+		
+		<h:dataTable value="#{employeeController.employees}" var="s"
+		id="dtEmployee" border="1">
+			<h:column>
+			<f:facet name="header">ID</f:facet>
+				#{s.id}
+			</h:column>
+			<h:column>
+			<f:facet name="header">First Name</f:facet>
+				#{s.firstName}
+			</h:column>
+			<h:column>
+			<f:facet name="header">Last Name</f:facet>
+				#{s.lastName}
+			</h:column>
+			<h:column>
+			<f:facet name="header">Email</f:facet>
+				#{s.email}
+			</h:column>
+				<h:column>
+			<f:facet name="header">Phone Number</f:facet>
+				#{s.phoneNumber}
+			</h:column>
+			<h:column>
+			<f:facet name="header">Hire Date</f:facet>
+				#{s.hireDate}
+			</h:column>
+			<h:column>
+			<f:facet name="header">Job Id</f:facet>
+				#{s.jobId}
+			</h:column>
+			<h:column>
+			<f:facet name="header">Salary</f:facet>
+				#{s.salary}
+			</h:column>
+			<h:column>
+			<f:facet name="header">Commission Pct</f:facet>
+				#{s.commissionPct}
+			</h:column>
+			<h:column>
+			<f:facet name="header">Manager Id</f:facet>
+				#{s.managerId}
+			</h:column>
+			<h:column>
+			<f:facet name="header">Departament Id</f:facet>
+				#{s.departamentId}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Actions</f:facet>
+				<h:commandButton action="#{employeeController.delete(s)}"
+				 value="Delete"
+				 onclick="return window.confirm
+					 ('Are you sure?')" >
+					<f:ajax render="frmEmployee:dtEmployee"/>
+				</h:commandButton>
+				<h:commandButton action="#{employeeController.update(s)}"
+				 value="Update" >
+				 	<f:ajax render="frmEmployee"/>
+				 </h:commandButton>
+			</h:column>
+		</h:dataTable>
+						
+		</h:form>
+			<br/><br/><br/>
+		<a href="menu.xhtml">Menu of Page</a>
+
+</body> 
+</html>

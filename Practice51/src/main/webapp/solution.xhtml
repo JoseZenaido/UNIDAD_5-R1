@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+	<h1>Solution</h1>
+	<h:form id="frmSolution">
+			Id history problem: <h:inputText value="#{solutionController.solution.idHistoryProblem}" />
+			Description Problem: <h:inputText value="#{solutionController.solution.descriptionProblem}" />
+							
+		<h:commandButton action="#{solutionController.save}" value="Save" >
+		<f:ajax execute="frmSolution" render="frmSolution"/>
+		</h:commandButton>
+		
+		<h:commandButton rendered="#{solutionController.editMode}" 
+			action="#{solutionController.save}" value="Cancel" >
+			<f:ajax render="frmSolution"></f:ajax>
+		</h:commandButton>
+		
+		<h:dataTable value="#{solutionController.solutions}" var="s"
+		id="dtSolution" border="1">
+			<h:column>
+			<f:facet name="header">ID</f:facet>
+				#{s.id}
+			</h:column>
+			<h:column>
+			<f:facet name="header">idHistoryProblem</f:facet>
+				#{s.idHistoryProblem}
+			</h:column>
+			<h:column>
+			<f:facet name="header">Description</f:facet>
+				#{s.descriptionProblem}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Actions</f:facet>
+				<h:commandButton action="#{solutionController.delete(s)}"
+				 value="Delete"
+				 onclick="return window.confirm
+					 ('Are you sure?')" >
+					<f:ajax render="frmSolution:dtSolution"/>
+				</h:commandButton>
+				<h:commandButton action="#{solutionController.update(s)}"
+				 value="Update" >
+				 	<f:ajax render="frmSolution"/>
+				 </h:commandButton>
+			</h:column>
+		</h:dataTable>
+						
+		</h:form>
+			<br/><br/><br/>
+		<a href="menu.xhtml">Menu of Page</a>
+</body> 
+</html>
